@@ -23,11 +23,7 @@ Either as with the title by just creating a string (or an f-string). Or as with 
 '''
 #date_time = input('your date/time of travel')
 #user_time = input('your time')
-plat = st.number_input('your pick lat')
-plon = st.number_input('your pick lon')
-dlat = st.number_input('your drop lat')
-dlon = st.number_input('your drop lon')
-count = st.number_input('no. of passengers')
+
 '''
 ## Once we have these, let's call our API in order to retrieve a prediction
 
@@ -51,9 +47,14 @@ url = 'https://taxifare.lewagon.ai/predict'
 
 if url == 'https://taxifare.lewagon.ai/predict':
 
-    st.markdown('Maybe you want to use your own API for the prediction, not the one provided by Le Wagon...')
+    st.markdown(' 🏘️ Maybe you want to use your own API for the prediction, not the one provided by Le Wagon... :100:')
 
 
+    plat = st.number_input(' 🚋 your pick lat')
+    plon = st.number_input('your pick lon')
+    dlat = st.number_input('your drop lat 🚲')
+    dlon = st.number_input('your drop lon🚋')
+    count = st.number_input('no. of passengers')
     from datetime import datetime
     import pytz
 
@@ -66,15 +67,16 @@ if url == 'https://taxifare.lewagon.ai/predict':
     localized_pickup_datetime = eastern.localize(pickup_datetime, is_dst=None)
     utc_pickup_datetime = localized_pickup_datetime.astimezone(pytz.utc)
     formatted_pickup_datetime = utc_pickup_datetime.strftime("%Y-%m-%d %H:%M:%S UTC")
+    st.write(type(formatted_pickup_datetime))
 
-    d = {
-    "pickup_datetime": formatted_pickup_datetime,
-    "pickup_longitude": float(plon),
-    "pickup_latitude": float(plat),
-    "dropoff_longitude": float(dlat),
-    "dropoff_latitude": float(dlon),
-    "passenger_count": int(count)
-    }
-    params = d
+    params = dict(
+    pickup_datetime=pickup_datetime,
+    pickup_longitude=float(plon),
+    pickup_latitude=float(plat),
+    dropoff_longitude=float(dlat),
+    dropoff_latitude=float(dlon),
+    passenger_count=int(count))
+    st.map()
     response = requests.get(url,params).json()
+    st.write(f'{url}?{params}')
     st.write(response)
