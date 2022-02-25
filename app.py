@@ -35,14 +35,6 @@ See ? No need to load a `model.joblib` file in this app, we do not even need to 
 
 🤔 How could we call our API ? Off course... The `requests` package 💡
 '''
-import requests
-url = 'https://taxifare.lewagon.ai/predict'
-
-
-if url == 'https://taxifare.lewagon.ai/predict':
-
-    st.markdown('Maybe you want to use your own API for the prediction, not the one provided by Le Wagon...')
-
 '''
 
 2. Let's build a dictionary containing the parameters for our API...
@@ -53,27 +45,36 @@ if url == 'https://taxifare.lewagon.ai/predict':
 
 ## Finally, we can display the prediction to the user
 '''
-from datetime import datetime
-import pytz
+import requests
+url = 'https://taxifare.lewagon.ai/predict'
 
-# create a datetime object from the user provided datetime
-pickup_datetime = "2021-05-30 10:12:00"
-pickup_datetime = datetime.strptime(pickup_datetime, "%Y-%m-%d %H:%M:%S")
 
-# localize the user datetime with NYC timezone
-eastern = pytz.timezone("US/Eastern")
-localized_pickup_datetime = eastern.localize(pickup_datetime, is_dst=None)
-utc_pickup_datetime = localized_pickup_datetime.astimezone(pytz.utc)
-formatted_pickup_datetime = utc_pickup_datetime.strftime("%Y-%m-%d %H:%M:%S UTC")
+if url == 'https://taxifare.lewagon.ai/predict':
 
-d = {
-  "pickup_datetime": formatted_pickup_datetime,
-  "pickup_longitude": plon,
-  "pickup_latitude": plat,
-  "dropoff_longitude": dlat,
-  "dropoff_latitude": dlon,
-  "passenger_count": count
-}
-params = d
-response = requests.get('url',params).json()
-st.write(response)
+    st.markdown('Maybe you want to use your own API for the prediction, not the one provided by Le Wagon...')
+
+
+    from datetime import datetime
+    import pytz
+
+    # create a datetime object from the user provided datetime
+    pickup_datetime = "2021-05-30 10:12:00"
+    pickup_datetime = datetime.strptime(pickup_datetime, "%Y-%m-%d %H:%M:%S")
+
+    # localize the user datetime with NYC timezone
+    eastern = pytz.timezone("US/Eastern")
+    localized_pickup_datetime = eastern.localize(pickup_datetime, is_dst=None)
+    utc_pickup_datetime = localized_pickup_datetime.astimezone(pytz.utc)
+    formatted_pickup_datetime = utc_pickup_datetime.strftime("%Y-%m-%d %H:%M:%S UTC")
+
+    d = {
+    "pickup_datetime": formatted_pickup_datetime,
+    "pickup_longitude": plon,
+    "pickup_latitude": plat,
+    "dropoff_longitude": dlat,
+    "dropoff_latitude": dlon,
+    "passenger_count": count
+    }
+    params = d
+    response = requests.get('url',params).json()
+    st.write(response)
