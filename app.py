@@ -23,7 +23,7 @@ Either as with the title by just creating a string (or an f-string). Or as with 
 '''
 #date_time = input('your date/time of travel')
 #user_time = input('your time')
-plat = st.time_input('your pick lat')
+plat = st.number_input('your pick lat')
 plon = st.number_input('your pick lon')
 dlat = st.number_input('your drop lat')
 dlon = st.number_input('your drop lon')
@@ -69,12 +69,12 @@ if url == 'https://taxifare.lewagon.ai/predict':
 
     d = {
     "pickup_datetime": formatted_pickup_datetime,
-    "pickup_longitude": plon,
-    "pickup_latitude": plat,
-    "dropoff_longitude": dlat,
-    "dropoff_latitude": dlon,
-    "passenger_count": count
+    "pickup_longitude": float(plon),
+    "pickup_latitude": float(plat),
+    "dropoff_longitude": float(dlat),
+    "dropoff_latitude": float(dlon),
+    "passenger_count": int(count)
     }
     params = d
-    response = requests.get('url',params).json()
+    response = requests.get(url,params).json()
     st.write(response)
