@@ -21,13 +21,13 @@ Either as with the title by just creating a string (or an f-string). Or as with 
 - dropoff latitude
 - passenger count
 '''
-date_time = input('your date/time of travel')
+#date_time = input('your date/time of travel')
 #user_time = input('your time')
-plat = input('your pick lat')
-plon = input('your pick lon')
-dlat = input('your drop lat')
-dlon = input('your drop lon')
-count = input('no. of passengers')
+plat = st.time_input('your pick lat')
+plon = st.number_input('your pick lon')
+dlat = st.number_input('your drop lat')
+dlon = st.number_input('your drop lon')
+count = st.number_input('no. of passengers')
 '''
 ## Once we have these, let's call our API in order to retrieve a prediction
 
