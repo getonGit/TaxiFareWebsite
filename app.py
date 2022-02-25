@@ -76,7 +76,12 @@ if url == 'https://taxifare.lewagon.ai/predict':
     dropoff_longitude=float(dlat),
     dropoff_latitude=float(dlon),
     passenger_count=int(count))
-    st.map()
+    import pandas as pd
+    df = pd.DataFrame(data = [[40.783282, -73.950655],[40.769802, -73.984365]],columns=['lat', 'lon'])
+    st.map(df)
+
+
+
     response = requests.get(url,params).json()
-    st.write(f'{url}?{params}')
+    #st.write(f'{url}?{params}')
     st.write(response)
